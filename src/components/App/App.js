@@ -10,6 +10,7 @@ import SignIn from '../Auth/SignIn/SignIn'
 import SignOut from '../Auth/SignOut/SignOut'
 import ChangePassword from '../Auth/ChangePassword/ChangePassword'
 import MyTopic from '../Quiz/MyTopic/MyTopic'
+import QuizCreate from '../Quiz/QuizCreate/QuizCreate'
 
 class App extends Component {
   constructor () {
@@ -62,6 +63,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/my-topics' render={() => (
             <MyTopic msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/create-quiz' render={() => (
+            <QuizCreate msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>
