@@ -33,6 +33,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header user={user} />
+        { user && <span className="text-success float-right mr-2">Welcome, {user.email}</span>}
         {msgAlerts.map((msgAlert, index) => (
           <AutoDismissAlert
             key={index}
