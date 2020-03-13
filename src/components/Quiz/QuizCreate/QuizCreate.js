@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import QuestionModal from '../QuestionModal/QuestionModal'
 import QuestionList from '../QuestionList/QuestionList'
+import { createQuiz } from '../../../api/quiz'
+import messages from '../../Shared/AutoDismissAlert/messages'
 
 class QuizCreate extends Component {
   constructor (props) {
@@ -25,6 +27,38 @@ class QuizCreate extends Component {
         incorrect_ans3: ''
       }
     }
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+
+    // Validate
+    if (this.state.topic.title === '') {
+      this.setState({ validated: true })
+      return
+    }
+
+    const { msgAlert, history, user } = this.props
+
+    createQuiz(user, this.state.topic)
+      .then(() => msgAlert({
+        heading: 'Create Topic Success',
+        message: messages.createTopicSuccess,
+        variant: 'success'
+      }))
+      .then(() => history.push('/'))
+      .catch(error => {
+        this.setState({ topic: {
+          title: '',
+          quizBank: []
+        }
+        })
+        msgAlert({
+          heading: 'Create Topic Failed with error: ' + error.message,
+          message: messages.createTopicFailure,
+          variant: 'danger'
+        })
+      })
   }
 
   handleChange = event => {
@@ -95,24 +129,28 @@ class QuizCreate extends Component {
   handleShow = () => this.setShow(true)
 
   render () {
-    const { handleChange, handleSave, handleClose, handleShow } = this
+    const { handleSubmit, handleChange, handleSave, handleClose, handleShow } = this
     const { topic, show, validated } = this.state
     return (
       <Fragment>
         <div className="row">
           <div className="col-12">
-            <Form className="mt-5">
+            <Form noValidate validated={validated} className="mt-5" onSubmit={handleSubmit}>
               <Card>
                 <Card.Header>
                   <Form.Group>
                     <Form.Label>Topic</Form.Label>
                     <Form.Control
+                      required
                       type="text"
                       name="title"
                       value= {topic.title}
                       placeholder="Enter topic here"
                       onChange={handleChange}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter a title for the topic.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Card.Header>
                 <Card.Body>
