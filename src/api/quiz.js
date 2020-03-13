@@ -11,7 +11,7 @@ export const createQuiz = (user, topic) => {
     data: {
       quiz: {
         topic: topic.title,
-        quiz_banks_attributes: topic.quizBank
+        quiz_banks_attributes: topic.quiz_banks
       }
     }
   })
@@ -23,6 +23,22 @@ export const getMyTopics = (user) => {
     url: apiUrl + '/my_topics',
     headers: {
       'Authorization': `Token token=${user.token}`
+    }
+  })
+}
+
+export const updateMyTopics = (user, topic) => {
+  return axios({
+    method: 'PATCH',
+    url: apiUrl + `/quizzes/${topic.topicId}`,
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      quiz: {
+        topic: topic.title,
+        quiz_banks_attributes: topic.quiz_banks
+      }
     }
   })
 }

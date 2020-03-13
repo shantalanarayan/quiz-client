@@ -45,7 +45,7 @@ class MyTopic extends Component {
         variant: 'success'
       }))
       .then(() => {
-        const updatedTopics = this.state.topics.filter(topic => topic.id.toString() !== id)
+        const updatedTopics = this.state.topics.filter(topic => topic.id.toString() !== id.toString())
         this.setState({ topics: updatedTopics })
       })
       .catch(error => {
@@ -61,7 +61,10 @@ class MyTopic extends Component {
   render () {
     const topics = this.state.topics.map(item => (
       <ListGroup.Item key={item.id}>
-        <Link to={`/topic/${item.id}`}>{item.topic}</Link>
+        <Link to={{
+          pathname: `/quiz-edit/${item.id}/edit`,
+          state: { quizzes: this.state.topics.filter(topic => topic.id.toString() === item.id.toString()) }
+        }}>{item.topic}</Link>
         <Button id={item.id} className="btn btn-small btn-danger float-right" onClick={this.destroy}>Delete</Button>
       </ListGroup.Item>
     ))

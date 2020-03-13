@@ -11,6 +11,7 @@ import SignOut from '../Auth/SignOut/SignOut'
 import ChangePassword from '../Auth/ChangePassword/ChangePassword'
 import MyTopic from '../Quiz/MyTopic/MyTopic'
 import QuizCreate from '../Quiz/QuizCreate/QuizCreate'
+// import QuizEdit from '../Quiz/QuizEdit/QuizEdit'
 
 class App extends Component {
   constructor () {
@@ -66,6 +67,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/create-quiz' render={() => (
             <QuizCreate msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute exact user={user} path='/quiz-edit/:id/edit' render={({ match }) => (
+            <QuizCreate user={user} msgAlert={this.msgAlert} match={match} />
           )} />
         </main>
       </Fragment>
