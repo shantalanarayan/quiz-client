@@ -1,8 +1,9 @@
 import React from 'react'
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
 
-const QuestionList = ({ quizBank }) => {
+const QuestionList = ({ quizBank, handleEdit }) => {
   return (
     <Accordion className="mt-3" defaultActiveKey="0">
       { quizBank.map((question, index) => {
@@ -20,6 +21,9 @@ const QuestionList = ({ quizBank }) => {
               <Card.Text className="text-muted">{question.incorrect_ans2}</Card.Text>
               <Card.Subtitle>Incorrect Answer 3</Card.Subtitle>
               <Card.Text className="text-muted">{question.incorrect_ans3}</Card.Text>
+              <Button id={index} variant="secondary" onClick={handleEdit}>
+                Edit
+              </Button>
             </Card.Body>
           </Accordion.Collapse>
         </Card>

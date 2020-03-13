@@ -8,8 +8,11 @@ export default {
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
   createTopicSuccess: 'Created topic successfully!',
   createTopicFailure: 'Failed to create topic.',
+  updateTopicSuccess: 'Updated topic successfully!',
+  updateTopicFailure: 'Failed to update topic.',
   getMyTopicSuccess: 'Successfully retrieved your topics!',
   getMyTopicFailure: 'Failed to retrieve your topics.',
   deleteTopicSuccess: 'Successfully deleted your topic!',
-  deleteTopicFailure: 'Failed to delete your topic.'
+  deleteTopicFailure: 'Failed to delete your topic.',
+  emptyQuizError: 'Please enter at least 1 question for this topic.'
 }

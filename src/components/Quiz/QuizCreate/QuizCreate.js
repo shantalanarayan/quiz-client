@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import QuestionModal from '../QuestionModal/QuestionModal'
 import QuestionList from '../QuestionList/QuestionList'
-import { createQuiz } from '../../../api/quiz'
+import { createQuiz, updateMyTopics } from '../../../api/quiz'
 import messages from '../../Shared/AutoDismissAlert/messages'
 
 class QuizCreate extends Component {
@@ -15,9 +15,12 @@ class QuizCreate extends Component {
     this.state = {
       show: false,
       validated: false,
+      isCreate: false,
+      topicId: null,
+      editId: null,
       topic: {
         title: '',
-        quizBank: []
+        quiz_banks: []
       },
       question: {
         questions: '',
@@ -29,36 +32,86 @@ class QuizCreate extends Component {
     }
   }
 
+  componentDidMount = () => {
+    // For edit state would be set
+    if (this.props.location.state) {
+      const { quizzes } = this.props.location.state
+      if (quizzes.length > 0) {
+        const quiz = quizzes[0]
+        this.setState({ topic: {
+          topicId: quiz.id,
+          title: quiz.topic,
+          quiz_banks: quiz.quiz_banks
+        } })
+      }
+    } else {
+      // State is not set. Hence, this is a create
+      this.setState({ isCreate: true })
+    }
+  }
+
   handleSubmit = event => {
     event.preventDefault()
 
-    // Validate
+    const { msgAlert, history, user } = this.props
+
+    // Validate topic
     if (this.state.topic.title === '') {
       this.setState({ validated: true })
       return
     }
 
-    const { msgAlert, history, user } = this.props
-
-    createQuiz(user, this.state.topic)
-      .then(() => msgAlert({
-        heading: 'Create Topic Success',
-        message: messages.createTopicSuccess,
-        variant: 'success'
-      }))
-      .then(() => history.push('/my-topics'))
-      .catch(error => {
-        this.setState({ topic: {
-          title: '',
-          quizBank: []
-        }
-        })
-        msgAlert({
-          heading: 'Create Topic Failed with error: ' + error.message,
-          message: messages.createTopicFailure,
-          variant: 'danger'
-        })
+    // Validate question bank
+    if (!this.state.topic.quiz_banks || this.state.topic.quiz_banks.length === 0) {
+      msgAlert({
+        heading: 'Empty Quiz',
+        message: messages.emptyQuizError,
+        variant: 'danger'
       })
+      return
+    }
+
+    if (this.state.isCreate) {
+      createQuiz(user, this.state.topic)
+        .then(() => msgAlert({
+          heading: 'Create Topic Success',
+          message: messages.createTopicSuccess,
+          variant: 'success'
+        }))
+        .then(() => history.push('/my-topics'))
+        .catch(error => {
+          this.setState({ topic: {
+            title: '',
+            quizBank: []
+          }
+          })
+          msgAlert({
+            heading: 'Create Topic Failed with error: ' + error.message,
+            message: messages.createTopicFailure,
+            variant: 'danger'
+          })
+        })
+    } else {
+      updateMyTopics(user, this.state.topic)
+        .then(() => msgAlert({
+          heading: 'Update Topic Success',
+          message: messages.updateTopicSuccess,
+          variant: 'success'
+        }))
+        .then(() => history.push('/my-topics'))
+        .catch(error => {
+          this.setState({ topic: {
+            title: '',
+            quizBank: []
+          }
+          })
+          msgAlert({
+            heading: 'Update Topic Failed with error: ' + error.message,
+            message: messages.updateTopicFailure,
+            variant: 'danger'
+          })
+        })
+    }
   }
 
   handleChange = event => {
@@ -84,12 +137,16 @@ class QuizCreate extends Component {
     this.setShow(false)
 
     // creates the clone of the state
-    const currentQuizBank = this.state.topic.quizBank.slice()
+    const currentQuizBank = this.state.topic.quiz_banks.slice()
 
     // clone the questions
-    currentQuizBank[currentQuizBank.length] = Object.assign({}, this.state.question)
+    if (this.state.editId) {
+      currentQuizBank[this.state.editId] = Object.assign({}, this.state.question)
+    } else {
+      currentQuizBank[currentQuizBank.length] = Object.assign({}, this.state.question)
+    }
 
-    const quizBank = { quizBank: currentQuizBank }
+    const quizBank = { quiz_banks: currentQuizBank }
     const editedTopic = Object.assign(this.state.topic, quizBank)
     this.setState({ topic: editedTopic })
     this.resetQuestionFormState()
@@ -117,8 +174,15 @@ class QuizCreate extends Component {
       incorrect_ans2: '',
       incorrect_ans3: ''
     }
-    this.setState({ question: question })
-    this.setState({ validated: false })
+    this.setState({ question: question, validated: false, editId: null })
+  }
+
+  handleEdit = event => {
+    event.preventDefault()
+    const id = event.target.id
+    const question = this.state.topic.quiz_banks[id]
+    this.setState({ question: question, editId: id })
+    this.handleShow()
   }
 
   setShow = show => {
@@ -129,8 +193,8 @@ class QuizCreate extends Component {
   handleShow = () => this.setShow(true)
 
   render () {
-    const { handleSubmit, handleChange, handleSave, handleClose, handleShow } = this
-    const { topic, show, validated } = this.state
+    const { handleSubmit, handleChange, handleSave, handleClose, handleShow, handleEdit } = this
+    const { topic, show, validated, question } = this.state
     return (
       <Fragment>
         <div className="row">
@@ -156,7 +220,7 @@ class QuizCreate extends Component {
                 <Card.Body>
                   <QuestionModal
                     show={show}
-                    topic={topic}
+                    question={question}
                     validated={validated}
                     handleChange={handleChange}
                     handleSave={handleSave}
@@ -164,7 +228,8 @@ class QuizCreate extends Component {
                     handleShow={handleShow}
                   />
                   <QuestionList
-                    quizBank={topic.quizBank}
+                    quizBank={topic.quiz_banks ? topic.quiz_banks : []}
+                    handleEdit={handleEdit}
                   />
                 </Card.Body>
                 <Card.Footer>

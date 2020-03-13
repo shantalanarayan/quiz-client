@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import QuestionForm from '../QuestionForm/QuestionForm'
 
-const QuestionModal = ({ show, validated, handleShow, handleClose, topic, handleSave, handleChange }) => {
+const QuestionModal = ({ show, validated, handleShow, handleClose, question, handleSave, handleChange }) => {
   return (
     <div>
       <Button variant="primary" onClick={handleShow}>
@@ -16,7 +16,7 @@ const QuestionModal = ({ show, validated, handleShow, handleClose, topic, handle
         </Modal.Header>
         <Modal.Body>
           <QuestionForm
-            topic={topic}
+            question={question}
             validated={validated}
             handleChange={handleChange}
             handleSave={handleSave}
