@@ -1,18 +1,46 @@
 import React, { Fragment, Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import ListGroup from 'react-bootstrap/ListGroup'
+import { withRouter, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
+import ListGroup from 'react-bootstrap/ListGroup'
+import { getMyTopics } from '../../../api/quiz'
+import messages from '../../Shared/AutoDismissAlert/messages'
 
 class MyTopic extends Component {
   constructor () {
     super()
     this.state = {
-      topic: []
+      topics: []
     }
   }
 
+  componentDidMount () {
+    const { msgAlert, user } = this.props
+
+    getMyTopics(user)
+      .then(res => this.setState({ topics: res.data.quizzes }))
+      .then(() => msgAlert({
+        heading: 'Get Topic Success',
+        message: messages.getMyTopicSuccess,
+        variant: 'success'
+      }))
+      .catch(error => {
+        this.setState({ topics: [] })
+        msgAlert({
+          heading: 'Get Topic Failed with error: ' + error.message,
+          message: messages.getMyTopicFailure,
+          variant: 'danger'
+        })
+      })
+  }
+
   render () {
+    const topics = this.state.topics.map(item => (
+      <ListGroup.Item key={item.id}>
+        <Link to={`/topic/${item.id}`}>{item.topic}</Link>
+      </ListGroup.Item>
+    ))
+
     return (
       <Fragment>
         <Jumbotron className="mt-5">
@@ -23,11 +51,7 @@ class MyTopic extends Component {
           </div>
           <div className="col-12">
             <ListGroup>
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-              <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+              {topics}
             </ListGroup>
           </div>
         </Jumbotron>
