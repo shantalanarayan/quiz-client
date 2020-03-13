@@ -26,3 +26,13 @@ export const getMyTopics = (user) => {
     }
   })
 }
+
+export const deleteTopic = (user, id) => {
+  return axios({
+    method: 'DELETE',
+    url: apiUrl + `/quizzes/${id}`,
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    }
+  })
+}

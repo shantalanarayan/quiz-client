@@ -9,5 +9,7 @@ export default {
   createTopicSuccess: 'Created topic successfully!',
   createTopicFailure: 'Failed to create topic.',
   getMyTopicSuccess: 'Successfully retrieved your topics!',
-  getMyTopicFailure: 'Failed to retrieve your topics.'
+  getMyTopicFailure: 'Failed to retrieve your topics.',
+  deleteTopicSuccess: 'Successfully deleted your topic!',
+  deleteTopicFailure: 'Failed to delete your topic.'
 }

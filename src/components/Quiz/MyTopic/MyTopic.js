@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { getMyTopics } from '../../../api/quiz'
+import { getMyTopics, deleteTopic } from '../../../api/quiz'
 import messages from '../../Shared/AutoDismissAlert/messages'
 
 class MyTopic extends Component {
@@ -34,10 +34,35 @@ class MyTopic extends Component {
       })
   }
 
+  destroy = (event) => {
+    const { msgAlert, user } = this.props
+    const id = event.target.id
+
+    deleteTopic(user, id)
+      .then(() => msgAlert({
+        heading: 'Delete Topic Success',
+        message: messages.deleteTopicSuccess,
+        variant: 'success'
+      }))
+      .then(() => {
+        const updatedTopics = this.state.topics.filter(topic => topic.id.toString() !== id)
+        this.setState({ topics: updatedTopics })
+      })
+      .catch(error => {
+        this.setState({ topics: [] })
+        msgAlert({
+          heading: 'Delete Topic Failed with error: ' + error.message,
+          message: messages.deleteTopicFailure,
+          variant: 'danger'
+        })
+      })
+  }
+
   render () {
     const topics = this.state.topics.map(item => (
       <ListGroup.Item key={item.id}>
         <Link to={`/topic/${item.id}`}>{item.topic}</Link>
+        <Button id={item.id} className="btn btn-small btn-danger float-right" onClick={this.destroy}>Delete</Button>
       </ListGroup.Item>
     ))
 
