@@ -7,5 +7,7 @@ export default {
   changePasswordSuccess: 'Password changed successfully!',
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
   createTopicSuccess: 'Created topic successfully!',
-  createTopicFailure: 'Failed to create topic.'
+  createTopicFailure: 'Failed to create topic.',
+  getMyTopicSuccess: 'Successfully retrieved your topics!',
+  getMyTopicFailure: 'Failed to retrieve your topics.'
 }

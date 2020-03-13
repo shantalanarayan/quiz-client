@@ -46,7 +46,7 @@ class QuizCreate extends Component {
         message: messages.createTopicSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/'))
+      .then(() => history.push('/my-topics'))
       .catch(error => {
         this.setState({ topic: {
           title: '',

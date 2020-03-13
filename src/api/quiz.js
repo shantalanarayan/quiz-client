@@ -16,3 +16,13 @@ export const createQuiz = (user, topic) => {
     }
   })
 }
+
+export const getMyTopics = (user) => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/my_topics',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    }
+  })
+}
