@@ -1,1 +1,40 @@
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Lovers+Quarrel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+$nav-bg-color: #c99155;
+$nav-text: #754007;
+$bg-text-color: white;
+$sm-text-color: #754007;
+
+body {
+  background-image: url('images/bg-img.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: $bg-text-color;
+}
+
+.navbar-custom {
+  background-color: $nav-bg-color;
+}
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: $nav-text;
+  font-family: 'Lovers Quarrel', cursive;
+  font-size: 40px;
+}
+
+.welcome-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-image: url('images/bg-img-sm.jpg');
+    background-size: 100% 800px;
+    color: $sm-text-color;
+  }
+}

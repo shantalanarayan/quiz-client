@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import logo from '../../../images/logo.svg'
 
 const authenticatedOptions = (
   <Fragment>
@@ -24,8 +25,15 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
+  <Navbar className="navbar-custom" variant="dark" expand="md">
     <Navbar.Brand href="https://www.linkedin.com/in/shantalanarayan/" target="_blank">
+      <img
+        width="60"
+        height="60"
+        src={logo}
+        className="d-inline-block align-top"
+        alt=""
+      />{' '}
       Quiz-Up
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
