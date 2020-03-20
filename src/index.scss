@@ -1,11 +1,14 @@
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Lovers+Quarrel&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
 
-$nav-bg-color: #c99155;
-$nav-text: #754007;
-$bg-text-color: white;
+$nav-bg-color: #FFA07A;
+$nav-text: #360000;
+$bg-text-color: #ffffff;
 $sm-text-color: #754007;
+$welcome-text-color: #ffffffff;
+$welcome-simle-color: #deb887;
 
 body {
   background: url(images/bg-img.jpg) no-repeat center center fixed; 
@@ -28,6 +31,11 @@ body {
   font-size: 40px;
 }
 
+.nav-link {
+  font-family: 'Great Vibes', cursive;
+  font-size: 25px;
+}
+
 .dropdown-menu {
   background-color: $nav-text;
 }
@@ -37,6 +45,16 @@ body {
 }
 
 .welcome-text {
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Cookie', cursive;
   font-size: 40px;
+  color: $welcome-text-color;
+}
+
+.fa-smile {
+  color: $welcome-simle-color;
+}
+
+.card {
+  background-color: rgba(0,0,0, 0.4);
+  border-radius: 5;
 }
