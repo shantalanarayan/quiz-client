@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import logo from '../../../images/logo.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const authenticatedOptions = (
   <Fragment>
     <Nav.Link href="#my-topics">My Topics</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
-    <Nav.Link href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
 )
 
@@ -38,10 +40,21 @@ const Header = ({ user }) => (
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="ml-auto">
+      <Nav className="mr-auto">
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>
+      { user &&
+        <Nav className="ml-auto">
+          <NavDropdown title={
+            <i>
+              <FontAwesomeIcon icon={faUser}/> { user.email }
+            </i>
+          } id="collasible-nav-dropdown">
+            <NavDropdown.Item href="#sign-out"><i>Sign Out</i></NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+      }
     </Navbar.Collapse>
   </Navbar>
 )
