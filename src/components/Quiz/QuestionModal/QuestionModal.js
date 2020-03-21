@@ -10,7 +10,7 @@ const QuestionModal = ({ show, validated, handleShow, handleClose, question, han
         + Add a new question
       </Button>
 
-      <Modal class="quiz-modal" show={show} onHide={handleClose} animation={false}>
+      <Modal className="quiz-modal" show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Question Form</Modal.Title>
         </Modal.Header>
