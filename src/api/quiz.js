@@ -27,6 +27,13 @@ export const getMyTopics = (user) => {
   })
 }
 
+export const getTopics = () => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/quizzes'
+  })
+}
+
 export const updateMyTopics = (user, topic) => {
   return axios({
     method: 'PATCH',

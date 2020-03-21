@@ -27,7 +27,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar className="navbar-custom" variant="dark" expand="md">
+  <Navbar className="navbar-custom" expand="md">
     <Navbar.Brand href="https://www.linkedin.com/in/shantalanarayan/" target="_blank">
       <img
         width="60"

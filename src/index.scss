@@ -1,6 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Lovers+Quarrel&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
 
 $nav-bg-color: #FFA07A;
@@ -32,16 +31,16 @@ body {
 }
 
 .nav-link {
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Cookie', cursive;
   font-size: 25px;
 }
 
 .dropdown-menu {
-  background-color: $nav-text;
+  background-color: $nav-bg-color;
 }
 
 .dropdown-item {
-  color: $bg-text-color;
+  color: $nav-text;
 }
 
 .welcome-text {

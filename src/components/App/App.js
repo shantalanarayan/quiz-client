@@ -11,7 +11,6 @@ import SignOut from '../Auth/SignOut/SignOut'
 import ChangePassword from '../Auth/ChangePassword/ChangePassword'
 import MyTopic from '../Quiz/MyTopic/MyTopic'
 import QuizCreate from '../Quiz/QuizCreate/QuizCreate'
-// import QuizEdit from '../Quiz/QuizEdit/QuizEdit'
 
 class App extends Component {
   constructor () {
@@ -47,7 +46,7 @@ class App extends Component {
         ))}
         <main className="container">
           <Route exact path='/' render={() => (
-            <Home user={user} />
+            <Home user={user} msgAlert={this.msgAlert} />
           )} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
