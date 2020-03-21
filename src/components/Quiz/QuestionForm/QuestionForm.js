@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 const QuestionForm = ({ question, validated, handleSave, handleChange }) => {
   return (
     <div>
-      <Form noValidate validated={validated} className="mt-5" onSubmit={handleSave}>
+      <Form noValidate validated={validated} onSubmit={handleSave}>
         <Form.Group>
           <Form.Label>Question</Form.Label>
           <Form.Control

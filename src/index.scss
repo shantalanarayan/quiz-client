@@ -7,7 +7,7 @@ $nav-text: #360000;
 $bg-text-color: #ffffff;
 $sm-text-color: #754007;
 $welcome-text-color: #ffffffff;
-$welcome-simle-color: #deb887;
+$fav-color: #deb887;
 
 body {
   background: url(images/bg-img.jpg) no-repeat center center fixed; 
@@ -19,7 +19,9 @@ body {
 }
 
 .navbar-custom {
-  background-color: $nav-bg-color;
+  background-attachment: fixed;
+  background-image: url(images/radiant-bg.svg);
+  background-size: cover;
 }
 
 /* change the brand and text color */
@@ -49,11 +51,20 @@ body {
   color: $welcome-text-color;
 }
 
-.fa-smile {
-  color: $welcome-simle-color;
+.fa-smile,
+.fa-lightbulb {
+  color: $fav-color;
 }
 
 .card {
   background-color: rgba(0,0,0, 0.4);
   border-radius: 5;
+}
+
+.modal-content,
+.jumbotron {
+  background-image: url(images/spectrum-bg.svg);
+  background-attachment: fixed;
+  background-size: cover;
+  color: black;
 }

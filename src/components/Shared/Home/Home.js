@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import Card from 'react-bootstrap/Card'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSmile, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faSmile, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import { getTopics } from '../../../api/quiz'
 import messages from '../../Shared/AutoDismissAlert/messages'
@@ -62,7 +62,7 @@ class Home extends Component {
         { this.userWelcome(user) }
         <Card className="mt-3">
           <div className="row">
-            <FontAwesomeIcon icon={faQuestionCircle} size="6x" className="m-4"/>
+            <FontAwesomeIcon icon={faLightbulb} size="6x" className="mt-4 ml-5"/>
             <p className="mt-md-5 pl-5 welcome-text text-align-right">Take a Quiz. Pick a Topic.</p>
           </div>
           <QuizTopic topics={this.state.topics}></QuizTopic>

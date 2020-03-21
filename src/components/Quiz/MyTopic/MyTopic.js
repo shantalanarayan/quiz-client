@@ -60,7 +60,7 @@ class MyTopic extends Component {
 
   render () {
     const topics = this.state.topics.map(item => (
-      <ListGroup.Item key={item.id}>
+      <ListGroup.Item key={item.id} className="p-md-5 m-md-2" variant="info">
         <Link to={{
           pathname: `/quiz-edit/${item.id}/edit`,
           state: { quizzes: this.state.topics.filter(topic => topic.id.toString() === item.id.toString()) }
