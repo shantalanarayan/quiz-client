@@ -9,7 +9,7 @@ const QuestionList = ({ quizBank, handleEdit }) => {
       { quizBank.map((question, index) => {
         return <Card className="m-2" key={index}>
           <Accordion.Toggle as={Card.Header} eventKey={index}>
-            <Card.Header class="font-weight-bold">{question.questions}</Card.Header>
+            <Card.Header className="font-weight-bold">{question.questions}</Card.Header>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey={index}>
             <Card.Body>
